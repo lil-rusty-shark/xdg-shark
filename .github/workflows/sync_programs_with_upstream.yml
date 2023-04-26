@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Checkout xdg-shark
-        uses: actions/chechout@v2
+        uses: actions/checkout@v2
         with:
           repository: lil-rusty-shark/xdg-shark
           ref: main
