@@ -1,0 +1,36 @@
+name: Sync programs folder with upsteam
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync_programs_folder:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout xdg-shark
+        uses: actions/chechout@v2
+        with:
+          repository: lil-rusty-shark/xdg-shark
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN}}
+
+      - name: Add upstream remote
+        run: git remote add upstream https://github.com/b3nj5m1n/xdg-ninja.git
+
+      - name: Fetch upstream changes
+        run: git fetch upstream
+
+      - name: Update programs folder
+        run |
+        git checkout main
+        git checkout upstream/main -- programs
+        git config user.name "GitHub Actions"
+        git config user.emial "actions@users.noreply.github.com"
+
+      - name: Commit and push changes
+        run |
+        git add programs
+        git diff-index --quiet HEAD || git commit -m "Update programs folder from xdg-ninja"
+        git push
+
