@@ -36,12 +36,11 @@ jobs:
             - name: Run benchmarks
               run: |
                 BASH_PROGRAM="./xdg-ninja-repo/xdg-ninja.sh"
-                RUST_PROGRAM="./target/release/xdg-shark"
+                RUST_PROGRAM="./home/runner/work/xdg-shark/xdg-shark"
 
                 echo "Benchmarking Bash program:"
                 sudo perf stat -r 5 -e task-clock $BASH_PROGRAM || echo "Bash program exited with code: $?"
                 
-                cd $GITHUB_WORKSPACE
                 
                 echo "Benchmarking Rust program:"
                 sudo perf stat -r 5 -e task-clock $RUST_PROGRAM || echo "Bash program exited with code: $?"
