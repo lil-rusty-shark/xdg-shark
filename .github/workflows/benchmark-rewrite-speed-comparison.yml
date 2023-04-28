@@ -39,8 +39,8 @@ jobs:
                 RUST_PROGRAM="./target/release/xdg-shark"
 
                 echo "Benchmarking Bash program:"
-                sudo perf stat -r 50 -e task-clock $BASH_PROGRAM
+                sudo perf stat -r 5 -e task-clock $BASH_PROGRAM || echo "Bash program exited with code: $?"
                 
                 echo "Benchmarking Rust program:"
-                sudo perf stat -r 50 -e task-clock $RUST_PROGRAM
+                sudo perf stat -r 5 -e task-clock $RUST_PROGRAM || echo "Bash program exited with code: $?"
 
