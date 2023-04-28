@@ -1,0 +1,46 @@
+name: Benchmark -- xdg-ninja compared to xdg-shark
+
+on:
+    push:
+        branches:
+            - master
+        
+jobs:
+    benchmark:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout xdg-shark repository
+              uses: actions/checkout@v2
+              
+            - name: Setup Rust
+              uses: actions-rs/toolchain@v1
+              with:
+                profile: minimal
+                toolchain: stable
+                override: true
+                path: 'xdg-shark-repo'
+                
+            - name: Checkout Bash repository
+              uses: actions/checkout@v2
+              with:
+                  repository: 'b3nj5m1n/xdg-ninja'
+                  path: 'xdg-ninja-repo'
+                
+                
+            - name: Build rust binary
+              uses: actions-rs/cargo@v1
+              with:
+                  command: build
+                  arg: --release
+                  
+            - name: Run benchmarks
+              run: |
+                BASH_PROGRAM="./bash-repo/xdg-ninja.sh"
+                RUST_PROGRAM="./rust-repo/target/release/rust_program"
+
+                echo "Benchmarking Bash program:"
+                perf stat -r 1000 -e task-clock $BASH_PROGRAM
+        
+                echo "Benchmarking Rust program:"
+                perf stat -r 1000 -e task-clock $RUST_PROGRAM
+
