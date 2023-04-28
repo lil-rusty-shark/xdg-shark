@@ -40,8 +40,8 @@ jobs:
                 RUST_PROGRAM="./rust-repo/target/release/rust_program"
 
                 echo "Benchmarking Bash program:"
-                perf stat -r 1000 -e task-clock $BASH_PROGRAM
+                sudo perf stat -r 1000 -e task-clock $BASH_PROGRAM
         
                 echo "Benchmarking Rust program:"
-                perf stat -r 1000 -e task-clock $RUST_PROGRAM
+                sudo perf stat -r 1000 -e task-clock $RUST_PROGRAM
 
