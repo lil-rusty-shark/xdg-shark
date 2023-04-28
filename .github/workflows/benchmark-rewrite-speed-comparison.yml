@@ -36,12 +36,12 @@ jobs:
                   
             - name: Run benchmarks
               run: |
-                BASH_PROGRAM="./bash-repo/xdg-ninja.sh"
-                RUST_PROGRAM="./rust-repo/target/release/rust_program"
+                BASH_PROGRAM="./xdg-ninja-repo/xdg-ninja.sh"
+                RUST_PROGRAM="./xdg-shark-repo/target/release/xdg-shark"
 
                 echo "Benchmarking Bash program:"
                 sudo perf stat -r 1000 -e task-clock $BASH_PROGRAM
-        
+                
                 echo "Benchmarking Rust program:"
                 sudo perf stat -r 1000 -e task-clock $RUST_PROGRAM
 
