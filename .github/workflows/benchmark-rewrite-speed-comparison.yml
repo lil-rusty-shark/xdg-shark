@@ -19,7 +19,6 @@ jobs:
                 profile: minimal
                 toolchain: stable
                 override: true
-                path: 'xdg-shark-repo'
                 
             - name: Checkout Bash repository
               uses: actions/checkout@v2
@@ -37,7 +36,7 @@ jobs:
             - name: Run benchmarks
               run: |
                 BASH_PROGRAM="./xdg-ninja-repo/xdg-ninja.sh"
-                RUST_PROGRAM="./xdg-shark-repo/target/release/xdg-shark"
+                RUST_PROGRAM="./target/release/xdg-shark"
 
                 echo "Benchmarking Bash program:"
                 sudo perf stat -r 50 -e task-clock $BASH_PROGRAM
