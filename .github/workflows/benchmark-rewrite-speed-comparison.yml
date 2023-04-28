@@ -1,6 +1,7 @@
 name: Benchmark -- xdg-ninja compared to xdg-shark
 
 on:
+    workflow_dispatch:
     push:
         branches:
             - master
