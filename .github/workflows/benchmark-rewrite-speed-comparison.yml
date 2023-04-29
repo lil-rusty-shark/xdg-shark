@@ -19,6 +19,7 @@ jobs:
                 profile: minimal
                 toolchain: stable
                 override: true
+
                 
             - name: Checkout Bash repository
               uses: actions/checkout@v2
@@ -32,6 +33,8 @@ jobs:
               with:
                   command: build
                   arg: --release
+                  run: chmod +x ./xdg-shark
+
                   
             - name: Run benchmarks
               run: |
