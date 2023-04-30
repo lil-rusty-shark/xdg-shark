@@ -2,10 +2,9 @@ name: Benchmark -- benchmark xdg-ninja
 
 on:
     workflow_dispatch:
-    push:
-        branches:
-            - master
-        
+    repository_dispatch:
+        types: [external-repo-changed]
+
 jobs:
     benchmark:
         runs-on: ubuntu-latest
@@ -18,9 +17,8 @@ jobs:
                 
             - name: Run benchmarks
               run: |
-                BASH_PROGRAM="./xdg-ninja-repo/xdg-ninja.sh"
+                xdg_ninja_script="./xdg-ninja-repo/xdg-ninja.sh"
 
-                echo "Benchmarking Bash program:"
-                sudo perf stat -r 50 -e task-clock $BASH_PROGRAM
-                
+                benchmark_output=$(sudo perf stat -r 50 -e task-clock $xdg_ninja_script)
+                echo "$benchmark_output"                
                 
