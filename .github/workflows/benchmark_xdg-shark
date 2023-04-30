@@ -1,0 +1,26 @@
+name: Benchmark -- benchmark xdg-ninja
+
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - master
+        
+jobs:
+    benchmark:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout xdg-shark
+              uses: actions/checkout@v2
+              with:
+                  repository: 'b3nj5m1n/xdg-ninja'
+                  path: 'xdg-ninja-repo'
+                
+            - name: Run benchmarks
+              run: |
+                BASH_PROGRAM="./xdg-ninja-repo/xdg-ninja.sh"
+
+                echo "Benchmarking Bash program:"
+                sudo perf stat -r 50 -e task-clock $BASH_PROGRAM
+                
+                
