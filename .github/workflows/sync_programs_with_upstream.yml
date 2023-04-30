@@ -2,6 +2,8 @@ name: Sync programs folder with upsteam
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
 
 jobs:
   sync_programs_folder:
